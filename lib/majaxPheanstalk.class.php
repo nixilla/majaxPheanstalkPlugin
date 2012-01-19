@@ -15,10 +15,16 @@ class majaxPheanstalk
    */
   public static function getInstance()
   {
-    $host = sfConfig::get('app_pheanstalk_host', '127.0.0.1');
-    $port = sfConfig::get('app_pheanstalk_port', 11300);
-
-    if (self::$conn == null) self::$conn = new Pheanstalk($host . ':' . $port);
+    if (self::$conn == null)
+    {
+      self::$conn = new Pheanstalk(
+        sprintf(
+          '%s:%s',
+          sfConfig::get('app_pheanstalk_host', '127.0.0.1'),
+          sfConfig::get('app_pheanstalk_port', 11300)
+        )
+      );
+    }
 
     return self::$conn;
   }

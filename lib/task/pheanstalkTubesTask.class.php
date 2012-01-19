@@ -1,16 +1,18 @@
 <?php
 
+/**
+ * Task to print out the Beanstalk registered tubes
+ *
+ * @package    majaxPheanstalkPlugin
+ * @subpackage task
+ */
+
 class pheanstalkTubesTask extends sfBaseTask
 {
   protected function configure()
   {
-    // // add your own arguments here
-    // $this->addArguments(array(
-    //   new sfCommandArgument('my_arg', sfCommandArgument::REQUIRED, 'My argument'),
-    // ));
-
     $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'crons'),
+      new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine'),
       // add your own options here
@@ -18,9 +20,9 @@ class pheanstalkTubesTask extends sfBaseTask
 
     $this->namespace        = 'pheanstalk';
     $this->name             = 'tubes';
-    $this->briefDescription = '';
+    $this->briefDescription = 'prints out registered tube names';
     $this->detailedDescription = <<<EOF
-The [pheanstalk:tubes|INFO] task does things.
+The [pheanstalk:tubes|INFO] task prints out registered tube names
 Call it with:
 
   [php symfony pheanstalk:tubes|INFO]
@@ -29,13 +31,7 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
-    // initialize the database connection
-    $databaseManager = new sfDatabaseManager($this->configuration);
-    $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
-
-    // add your code here
-    $pheanstalk = PheanstalkBridge::getInstance();
-    foreach($pheanstalk->listTubes() as $idx => $tube)
-      $this->logSection(($idx + 1), $tube);
+    foreach(majaxPheanstalk::getInstance()->listTubes() as $idx => $tube)
+      $this->logSection(++$idx, $tube);
   }
 }

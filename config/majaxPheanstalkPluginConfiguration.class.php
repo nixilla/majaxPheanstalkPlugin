@@ -2,7 +2,7 @@
 
 /**
  * majaxPheanstalkPlugin configuration.
- * 
+ *
  * @package     majaxPheanstalkPlugin
  * @subpackage  config
  * @author      Jacob Mather
@@ -10,8 +10,6 @@
  */
 class majaxPheanstalkPluginConfiguration extends sfPluginConfiguration
 {
-  const VERSION = '1.0.0-DEV';
-
   /**
    * @see sfPluginConfiguration
    */

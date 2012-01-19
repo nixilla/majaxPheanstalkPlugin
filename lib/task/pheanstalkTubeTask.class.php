@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Task to print out the Beanstalk tube stats
+ *
+ * @package    majaxPheanstalkPlugin
+ * @subpackage task
+ */
+
 class pheanstalkTubeTask extends sfBaseTask
 {
   protected function configure()
@@ -10,7 +17,7 @@ class pheanstalkTubeTask extends sfBaseTask
     ));
 
     $this->addOptions(array(
-      new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name', 'crons'),
+      new sfCommandOption('application', null, sfCommandOption::PARAMETER_REQUIRED, 'The application name'),
       new sfCommandOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'dev'),
       new sfCommandOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'doctrine'),
       // add your own options here
@@ -18,9 +25,9 @@ class pheanstalkTubeTask extends sfBaseTask
 
     $this->namespace        = 'pheanstalk';
     $this->name             = 'tube';
-    $this->briefDescription = '';
+    $this->briefDescription = 'prints out stats for given tube name';
     $this->detailedDescription = <<<EOF
-The [pheanstalk:tube|INFO] task does things.
+The [pheanstalk:tube|INFO] task prints out stats for given tube name.
 Call it with:
 
   [php symfony pheanstalk:tube|INFO]
@@ -29,15 +36,7 @@ EOF;
 
   protected function execute($arguments = array(), $options = array())
   {
-    // initialize the database connection
-    $databaseManager = new sfDatabaseManager($this->configuration);
-    $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
-
-    // add your code here
-    $pheanstalk = PheanstalkBridge::getInstance();
-    foreach($pheanstalk->statsTube($arguments['tube_name']) as $name => $val)
-    {
+    foreach(majaxPheanstalk::getInstance()->statsTube($arguments['tube_name']) as $name => $val)
       $this->logSection($name, $val);
-    }
   }
 }
