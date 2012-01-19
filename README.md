@@ -1,3 +1,37 @@
+Install
+=======
+
+Requirements
+------------
+
+majaxPheanstalkPlugin requires Pheanstalk - PHP client for beanstalkd queue (https://github.com/pda/pheanstalk)
+
+Good please to install it in the Symfony 1 app would be lib/vendor folder.
+
+Using SVN:
+
+    svn checkout https://svn.github.com/pda/pheanstalk.git lib/vendor/pheanstalk
+
+using svn:externals
+
+    svn pe svn:externals lib/vendor/
+    # add this line underneath symfony
+    symfony       http://svn.symfony-project.com/tags/RELEASE_1_4_16
+    pheanstalk    https://svn.github.com/pda/pheanstalk.git
+
+autoload.yml
+------------
+
+In config/autoload.yml (create one if it doesn't exist) add following
+
+    autoload:
+      pheanstalk:
+        name: pheanstalk
+        path: %SF_LIB_DIR%/vendor/pheanstalk
+        recursive: on
+
+then install the plugin itself and run php symfony cc
+
 To use
 ======
 
