@@ -1,3 +1,0 @@
-[submodule "vendor/pheanstalk"]
-	path = vendor/pheanstalk
-	url = https://github.com/pda/pheanstalk.git

@@ -6,7 +6,8 @@ Requirements
 
 majaxPheanstalkPlugin requires Pheanstalk - PHP client for beanstalkd queue (https://github.com/pda/pheanstalk)
 
-Good please to install it in the Symfony 1 app would be lib/vendor folder.
+Good location to install it in the Symfony 1 app would be lib/vendor folder.
+If you are installing in different folder, please adjust the configuration below to match it.
 
 Using SVN:
 
